@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -24,6 +25,10 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
     private TextView guessWordView;
     private Button guessButton;
 
+    private int numberOfWrongLetters;
+
+    private HashMap<Integer, Integer> images = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,8 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
         this.guessWordView = findViewById(R.id.nextLetterInput);
         this.guessButton = findViewById(R.id.guessButton);
         this.logik = new Galgelogik();
+
+        this.numberOfWrongLetters = this.logik.getAntalForkerteBogstaver();
 
         this.guessButton.setOnClickListener(this);
 
@@ -58,6 +65,13 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
+        this.images.put(1, R.drawable.forkert1);
+        this.images.put(2, R.drawable.forkert2);
+        this.images.put(3, R.drawable.forkert3);
+        this.images.put(4, R.drawable.forkert4);
+        this.images.put(5, R.drawable.forkert5);
+        this.images.put(6, R.drawable.forkert6);
+
     }
 
     @Override
@@ -73,6 +87,11 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
             this.logik.gætBogstav(guessedWord);
             this.wordView.setText(this.word = this.logik.getSynligtOrd());
             this.guessWordView.setText("");
+
+            if (this.numberOfWrongLetters < this.logik.getAntalForkerteBogstaver()) {
+                this.numberOfWrongLetters = this.logik.getAntalForkerteBogstaver();
+                this.img.setImageDrawable(getDrawable(this.images.get(this.numberOfWrongLetters)));
+            }
         }
     }
 }
