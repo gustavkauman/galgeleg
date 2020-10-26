@@ -6,7 +6,7 @@ public abstract class Subject {
 
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
-    public void notifyObservers() {
+    public void notifyAllObservers() {
         for (Observer observer : observers) {
             observer.onNotify(this);
         }

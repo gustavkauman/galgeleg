@@ -33,7 +33,7 @@ public class Game extends Subject {
 
         usedLetters.add(letter);
 
-        notifyObservers();
+        notifyAllObservers();
 
         return word.contains(letter);
     }
