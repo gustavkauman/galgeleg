@@ -1,14 +1,41 @@
 package dk.kauman.dtu.brint.galgeleg.models;
 
-import dk.kauman.dtu.brint.galgeleg.models.enums.GameStatus;
+import java.util.ArrayList;
 
-public class Game {
+import dk.kauman.dtu.brint.galgeleg.models.enums.GameStatus;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotLongEnoughException;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessTooLongException;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.LetterAlreadyGuessedException;
+import dk.kauman.dtu.brint.patterns.observer.Subject;
+
+public class Game extends Subject {
 
     private final String word;
+    private ArrayList<String> usedLetters;
     private GameStatus status = GameStatus.IN_PROGRESS;
 
     public Game(String word) {
         this.word = word;
+    }
+
+    public boolean guessLetter(String letter) throws GuessTooLongException, GuessNotLongEnoughException, LetterAlreadyGuessedException {
+        if (letter.length() > 1)
+            throw new GuessTooLongException();
+
+        if (letter.length() < 1)
+            throw new GuessNotLongEnoughException();
+
+        if (usedLetters.contains(letter))
+            throw new LetterAlreadyGuessedException();
+
+        if (isWon() || isLost())
+            return false;
+
+        usedLetters.add(letter);
+
+        notifyObservers();
+
+        return word.contains(letter);
     }
 
     public GameStatus getStatus() {
@@ -16,10 +43,10 @@ public class Game {
     }
 
     public boolean isWon() {
-        return this.status.equals(GameStatus.WON);
+        return this.getStatus().equals(GameStatus.WON);
     }
 
     public boolean isLost() {
-        return this.status.equals(GameStatus.LOST);
+        return this.getStatus().equals(GameStatus.LOST);
     }
 }

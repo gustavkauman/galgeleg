@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Random;
 
 import dk.kauman.dtu.brint.galgeleg.models.Game;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotLongEnoughException;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessTooLongException;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.LetterAlreadyGuessedException;
 import dk.kauman.dtu.brint.galgeleg.models.interfaces.WordProvider;
 
 public class GameController {
@@ -21,6 +24,10 @@ public class GameController {
         this.game = new Game(possibleWords.get(randomIndex));
 
         return this.game;
+    }
+
+    public void makeGuess(String letter) throws LetterAlreadyGuessedException, GuessTooLongException, GuessNotLongEnoughException {
+        game.guessLetter(letter);
     }
 
     public Game getGame() {
