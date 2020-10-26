@@ -12,6 +12,10 @@ public abstract class Subject {
         }
     }
 
+    public void notifyObserver(Observer observer) {
+        observer.onNotify(this);
+    }
+
     public void addObserver(Observer observer) {
         this.observers.add(observer);
     }
