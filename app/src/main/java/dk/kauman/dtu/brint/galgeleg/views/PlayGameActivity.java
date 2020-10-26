@@ -25,7 +25,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     private String word;
     private TextView wordView;
     private Galgelogik logik;
-    private TextView guessWordView;
+    private TextView guessLetterView;
     private Button guessButton;
 
     private int numberOfWrongLetters;
@@ -39,7 +39,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
 
         this.img = findViewById(R.id.hangManImage);
         this.wordView = findViewById(R.id.secretWordText);
-        this.guessWordView = findViewById(R.id.nextLetterInput);
+        this.guessLetterView = findViewById(R.id.nextLetterInput);
         this.guessButton = findViewById(R.id.guessButton);
         this.logik = new Galgelogik();
 
@@ -80,7 +80,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v == this.guessButton) {
-            String guessedLetter = guessWordView.getText().toString();
+            String guessedLetter = guessLetterView.getText().toString();
 
             if (guessedLetter.length() > 1) {
                 Toast.makeText(this, "Du må kun gætte på et bogstav ad gangen", Toast.LENGTH_LONG).show();
@@ -89,7 +89,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
 
             this.logik.gætBogstav(guessedLetter);
             this.wordView.setText(this.word = this.logik.getSynligtOrd());
-            this.guessWordView.setText("");
+            this.guessLetterView.setText("");
 
             if (this.numberOfWrongLetters < this.logik.getAntalForkerteBogstaver()) {
                 this.numberOfWrongLetters = this.logik.getAntalForkerteBogstaver();
