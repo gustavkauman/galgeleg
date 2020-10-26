@@ -42,6 +42,20 @@ public class Game extends Subject {
         return status;
     }
 
+    public String getVisibleWord() {
+        String retValue = "";
+
+        for (Character c : this.word.toCharArray()) {
+            if (this.usedLetters.contains(c.toString())) {
+                retValue = retValue + c.toString();
+            } else {
+                retValue = retValue + "*";
+            }
+        }
+
+        return retValue;
+    }
+
     public boolean isWon() {
         return this.getStatus().equals(GameStatus.WON);
     }
