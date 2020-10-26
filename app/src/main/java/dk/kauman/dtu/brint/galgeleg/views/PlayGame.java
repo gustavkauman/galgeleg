@@ -80,14 +80,14 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v == this.guessButton) {
-            String guessedWord = guessWordView.getText().toString();
+            String guessedLetter = guessWordView.getText().toString();
 
-            if (guessedWord.length() > 1) {
+            if (guessedLetter.length() > 1) {
                 Toast.makeText(this, "Du må kun gætte på et bogstav ad gangen", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            this.logik.gætBogstav(guessedWord);
+            this.logik.gætBogstav(guessedLetter);
             this.wordView.setText(this.word = this.logik.getSynligtOrd());
             this.guessWordView.setText("");
 
