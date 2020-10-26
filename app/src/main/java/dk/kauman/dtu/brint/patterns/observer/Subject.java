@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Subject {
 
-    private ArrayList<Observer> observers;
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
 
     public void notifyObservers() {
         for (Observer observer : observers) {

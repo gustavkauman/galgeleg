@@ -11,7 +11,7 @@ import dk.kauman.dtu.brint.patterns.observer.Subject;
 public class Game extends Subject {
 
     private final String word;
-    private ArrayList<String> usedLetters;
+    private ArrayList<String> usedLetters = new ArrayList<String>();
     private GameStatus status = GameStatus.IN_PROGRESS;
 
     public Game(String word) {
