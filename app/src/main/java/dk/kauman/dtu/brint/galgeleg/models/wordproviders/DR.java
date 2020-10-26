@@ -32,7 +32,6 @@ public class DR implements WordProvider {
     }
 
     private void removeNonEssentialWords() {
-
         if (this.words == null) {
             System.out.println("Word list is currently empty. Skipping...");
             return;
