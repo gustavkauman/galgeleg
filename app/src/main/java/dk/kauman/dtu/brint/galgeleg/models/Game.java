@@ -34,8 +34,23 @@ public class Game extends Subject {
         usedLetters.add(letter);
 
         notifyAllObservers();
+        updateStatus();
 
         return word.contains(letter);
+    }
+
+    private void updateStatus() {
+        boolean ongoing = false;
+
+        for (Character c : getVisibleWord().toCharArray()) {
+            if (c.equals("*".charAt(0)))
+                ongoing = true;
+        }
+
+        if (!ongoing) {
+            this.status = GameStatus.WON;
+            notifyAllObservers();
+        }
     }
 
     public GameStatus getStatus() {

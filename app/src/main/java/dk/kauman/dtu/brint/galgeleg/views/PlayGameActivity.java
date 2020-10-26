@@ -118,7 +118,14 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onNotify(Subject subject) {
         if (subject instanceof Game) {
-            this.wordView.setText(((Game) subject).getVisibleWord());
+            Game game = (Game) subject;
+
+            this.wordView.setText(game.getVisibleWord());
+
+            if (game.isWon()) {
+                Toast.makeText(this, "You've won the game!", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 }
