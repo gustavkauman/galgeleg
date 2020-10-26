@@ -63,4 +63,8 @@ public class Game extends Subject {
     public boolean isLost() {
         return this.getStatus().equals(GameStatus.LOST);
     }
+
+    public int getNumberOfUsedLetters() {
+        return this.usedLetters.size();
+    }
 }

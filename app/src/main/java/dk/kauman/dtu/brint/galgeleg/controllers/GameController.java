@@ -29,8 +29,8 @@ public class GameController {
         return this.game;
     }
 
-    public void makeGuess(String letter) throws LetterAlreadyGuessedException, GuessTooLongException, GuessNotLongEnoughException {
-        game.guessLetter(letter);
+    public boolean makeGuess(String letter) throws LetterAlreadyGuessedException, GuessTooLongException, GuessNotLongEnoughException {
+        return game.guessLetter(letter);
     }
 
     public Game getGame() {

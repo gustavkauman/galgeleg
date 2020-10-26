@@ -37,7 +37,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     private GameController controller;
     private Game game;
 
-    private HashMap<Integer, Integer> images = new HashMap<>();
+    private HashMap<Integer, Drawable> images = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +60,12 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setUpImages() {
-        this.images.put(1, R.drawable.forkert1);
-        this.images.put(2, R.drawable.forkert2);
-        this.images.put(3, R.drawable.forkert3);
-        this.images.put(4, R.drawable.forkert4);
-        this.images.put(5, R.drawable.forkert5);
-        this.images.put(6, R.drawable.forkert6);
+        this.images.put(1, getDrawable(R.drawable.forkert1));
+        this.images.put(2, getDrawable(R.drawable.forkert2));
+        this.images.put(3, getDrawable(R.drawable.forkert3));
+        this.images.put(4, getDrawable(R.drawable.forkert4));
+        this.images.put(5, getDrawable(R.drawable.forkert5));
+        this.images.put(6, getDrawable(R.drawable.forkert6));
     }
 
     public void setUpGame() {
@@ -93,7 +93,9 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
 
             try {
 
-                this.controller.makeGuess(guessedLetter);
+                if (!this.controller.makeGuess(guessedLetter)) {
+                    this.img.setImageDrawable(this.images.get(this.game.getNumberOfUsedLetters()));
+                }
 
             } catch (LetterAlreadyGuessedException e) {
                 Toast
