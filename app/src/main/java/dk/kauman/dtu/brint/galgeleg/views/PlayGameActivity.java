@@ -1,7 +1,6 @@
 package dk.kauman.dtu.brint.galgeleg.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,23 +11,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.HashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import dk.kauman.dtu.brint.galgeleg.controllers.Galgelogik;
 import dk.kauman.dtu.brint.galgeleg.R;
+import dk.kauman.dtu.brint.galgeleg.controllers.GameController;
+import dk.kauman.dtu.brint.galgeleg.models.Game;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotLongEnoughException;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessTooLongException;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.LetterAlreadyGuessedException;
+import dk.kauman.dtu.brint.galgeleg.models.interfaces.WordProvider;
+import dk.kauman.dtu.brint.galgeleg.models.wordproviders.DR;
+import dk.kauman.dtu.brint.patterns.observer.Observer;
+import dk.kauman.dtu.brint.patterns.observer.Subject;
 
-public class PlayGameActivity extends AppCompatActivity implements View.OnClickListener {
+public class PlayGameActivity extends AppCompatActivity implements View.OnClickListener, Observer {
 
     private ImageView img;
-    private String word;
     private TextView wordView;
-    private Galgelogik logik;
     private TextView guessLetterView;
     private Button guessButton;
-
-    private int numberOfWrongLetters;
+    private GameController controller;
+    private Game game;
 
     private HashMap<Integer, Integer> images = new HashMap<>();
 
@@ -41,40 +48,42 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
         this.wordView = findViewById(R.id.secretWordText);
         this.guessLetterView = findViewById(R.id.nextLetterInput);
         this.guessButton = findViewById(R.id.guessButton);
-        this.logik = new Galgelogik();
-
-        this.numberOfWrongLetters = this.logik.getAntalForkerteBogstaver();
-
         this.guessButton.setOnClickListener(this);
+
+        this.controller = new GameController();
 
         Drawable image = getDrawable(R.drawable.galge);
         this.img.setImageDrawable(image);
 
-        Executor bgThread = Executors.newSingleThreadExecutor();
-        Handler mainThread = new Handler(Looper.getMainLooper());
+        setUpGame();
+        setUpImages();
+    }
 
-        bgThread.execute(() -> {
-            try {
-                this.logik.hentOrdFraDr();
-
-                mainThread.post(() -> {
-                    this.word = this.logik.getSynligtOrd();
-                    wordView.setText(this.word);
-                });
-
-            } catch (Exception e) {
-                System.out.println("Der skete en fejl, mens vi prøvede at hente ord fra Danmarks Radio");
-                e.printStackTrace();
-            }
-        });
-
+    private void setUpImages() {
         this.images.put(1, R.drawable.forkert1);
         this.images.put(2, R.drawable.forkert2);
         this.images.put(3, R.drawable.forkert3);
         this.images.put(4, R.drawable.forkert4);
         this.images.put(5, R.drawable.forkert5);
         this.images.put(6, R.drawable.forkert6);
+    }
 
+    public void setUpGame() {
+        Executor bgThread = Executors.newSingleThreadExecutor();
+        Handler mainThread = new Handler(Looper.getMainLooper());
+
+        ProgressDialog dialog = ProgressDialog.show(this, "", "Loading game...");
+
+        bgThread.execute(() -> {
+            WordProvider wordProvider = new DR();
+            this.game = this.controller.createGame(wordProvider);
+            this.game.addObserver(this);
+
+            mainThread.post(() -> {
+                dialog.cancel();
+                this.wordView.setText(this.controller.getGame().getVisibleWord());
+            });
+        });
     }
 
     @Override
@@ -82,19 +91,32 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
         if (v == this.guessButton) {
             String guessedLetter = guessLetterView.getText().toString();
 
-            if (guessedLetter.length() > 1) {
-                Toast.makeText(this, "Du må kun gætte på et bogstav ad gangen", Toast.LENGTH_LONG).show();
-                return;
+            try {
+
+                this.controller.makeGuess(guessedLetter);
+
+            } catch (LetterAlreadyGuessedException e) {
+                Toast
+                    .makeText(this, "You've already tried to guess this letter", Toast.LENGTH_LONG)
+                    .show();
+            } catch (GuessTooLongException | GuessNotLongEnoughException e) {
+                Toast
+                    .makeText(this, "The entered does not match the criteria. Pleast enter a single letter", Toast.LENGTH_LONG)
+                    .show();
             }
 
-            this.logik.gætBogstav(guessedLetter);
-            this.wordView.setText(this.word = this.logik.getSynligtOrd());
-            this.guessLetterView.setText("");
+            clearTextField();
+        }
+    }
 
-            if (this.numberOfWrongLetters < this.logik.getAntalForkerteBogstaver()) {
-                this.numberOfWrongLetters = this.logik.getAntalForkerteBogstaver();
-                this.img.setImageDrawable(getDrawable(this.images.get(this.numberOfWrongLetters)));
-            }
+    private void clearTextField() {
+        this.guessLetterView.setText("");
+    }
+
+    @Override
+    public void onNotify(Subject subject) {
+        if (subject instanceof Game) {
+            this.wordView.setText(((Game) subject).getVisibleWord());
         }
     }
 }
