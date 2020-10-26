@@ -1,9 +1,11 @@
-package dk.kauman.dtu.brint.galgeleg;
+package dk.kauman.dtu.brint.galgeleg.views;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import dk.kauman.dtu.brint.galgeleg.R;
 
 public class MainMenu extends Activity implements View.OnClickListener {
 

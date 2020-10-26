@@ -1,4 +1,4 @@
-package dk.kauman.dtu.brint.galgeleg;
+package dk.kauman.dtu.brint.galgeleg.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +15,9 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import dk.kauman.dtu.brint.galgeleg.controllers.Galgelogik;
+import dk.kauman.dtu.brint.galgeleg.R;
 
 public class PlayGame extends AppCompatActivity implements View.OnClickListener {
 

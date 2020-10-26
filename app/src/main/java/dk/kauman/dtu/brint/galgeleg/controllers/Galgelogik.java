@@ -1,4 +1,4 @@
-package dk.kauman.dtu.brint.galgeleg;
+package dk.kauman.dtu.brint.galgeleg.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
