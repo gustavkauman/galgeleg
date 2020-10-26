@@ -7,7 +7,7 @@ import android.view.View;
 
 import dk.kauman.dtu.brint.galgeleg.R;
 
-public class MainMenu extends Activity implements View.OnClickListener {
+public class MainMenuActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class MainMenu extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == v.getRootView().findViewById(R.id.goToGameButton)) {
-            Intent intent = new Intent(this, PlayGame.class);
+            Intent intent = new Intent(this, PlayGameActivity.class);
             startActivity(intent);
         }
     }

@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 import dk.kauman.dtu.brint.galgeleg.controllers.Galgelogik;
 import dk.kauman.dtu.brint.galgeleg.R;
 
-public class PlayGame extends AppCompatActivity implements View.OnClickListener {
+public class PlayGameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView img;
     private String word;
