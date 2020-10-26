@@ -48,9 +48,13 @@ public class Game extends Subject {
         }
 
         if (!ongoing) {
-            this.status = GameStatus.WON;
-            notifyAllObservers();
+            setStatus(GameStatus.WON);
         }
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
+        notifyAllObservers();
     }
 
     public GameStatus getStatus() {
