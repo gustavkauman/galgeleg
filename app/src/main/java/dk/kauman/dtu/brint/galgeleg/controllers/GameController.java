@@ -17,6 +17,9 @@ public class GameController {
         // Get list of possible words from the word provider.
         List<String> possibleWords = wordProvider.getWords();
 
+        if (possibleWords.isEmpty())
+            throw new IllegalStateException("The word provider did not provide any words!");
+
         // Select a random index
         int randomIndex = (new Random()).nextInt(possibleWords.size());
 
