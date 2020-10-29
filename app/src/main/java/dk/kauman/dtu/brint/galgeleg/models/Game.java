@@ -57,7 +57,7 @@ public class Game extends Subject {
             return;
         }
 
-        if (usedLetters.size() >= this.word.length()) {
+        if (getNumberOfIncorrectUsedLetters() >= 6) {
             setStatus(GameStatus.LOST);
             return;
         }
