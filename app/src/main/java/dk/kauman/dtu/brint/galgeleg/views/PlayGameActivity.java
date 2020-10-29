@@ -126,6 +126,9 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(this, "You've won the game!", Toast.LENGTH_SHORT).show();
             }
 
+            if (game.isLost()) {
+                Toast.makeText(this, "You've lost the game :(", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

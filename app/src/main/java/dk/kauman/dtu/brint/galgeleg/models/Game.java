@@ -49,6 +49,12 @@ public class Game extends Subject {
 
         if (!ongoing) {
             setStatus(GameStatus.WON);
+            return;
+        }
+
+        if (usedLetters.size() >= this.word.length()) {
+            setStatus(GameStatus.LOST);
+            return;
         }
     }
 
