@@ -1,10 +1,17 @@
 package dk.kauman.dtu.brint.galgeleg.views;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +37,8 @@ import dk.kauman.dtu.brint.patterns.observer.Observer;
 import dk.kauman.dtu.brint.patterns.observer.Subject;
 
 public class PlayGameActivity extends AppCompatActivity implements View.OnClickListener, Observer {
+
+    public static final String RETURN_VALUE_IDENTIFIER = "numberOfGuesses";
 
     private ImageView img;
     private TextView wordView;
@@ -124,11 +133,24 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
             this.wordView.setText(game.getVisibleWord());
 
             if (game.isWon()) {
-                Toast.makeText(this, "You've won the game!", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(this)
+                        .setTitle("")
+                        .setMessage("You've won the game!")
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            Intent intent = new Intent();
+                            intent.putExtra(RETURN_VALUE_IDENTIFIER, this.game.getNumberOfUsedLetters());
+                            setResult(Activity.RESULT_OK, intent);
+                            finish();
+                        }).show();
             }
 
             if (game.isLost()) {
-                Toast.makeText(this, "You've lost the game :(", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(this)
+                        .setTitle("")
+                        .setMessage("You've lost the game! :(\nYou made a total of " + this.game.getNumberOfUsedLetters() + " guesses.")
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> onBackPressed()).show();
+
+                onBackPressed();
             }
         }
     }
