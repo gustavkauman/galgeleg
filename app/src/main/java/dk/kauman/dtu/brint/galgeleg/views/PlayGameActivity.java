@@ -94,7 +94,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
             try {
 
                 if (!this.controller.makeGuess(guessedLetter)) {
-                    this.img.setImageDrawable(this.images.get(this.game.getNumberOfUsedLetters()));
+                    this.img.setImageDrawable(this.images.get(this.game.getNumberOfIncorrectUsedLetters()));
                 }
 
             } catch (LetterAlreadyGuessedException e) {

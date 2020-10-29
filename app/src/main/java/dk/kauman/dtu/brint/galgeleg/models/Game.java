@@ -92,4 +92,16 @@ public class Game extends Subject {
     public int getNumberOfUsedLetters() {
         return this.usedLetters.size();
     }
+
+    public int getNumberOfIncorrectUsedLetters() {
+        int val = 0;
+
+        for (String s : this.usedLetters) {
+            if (!this.word.contains(s)) {
+                val++;
+            }
+        }
+
+        return val;
+    }
 }
