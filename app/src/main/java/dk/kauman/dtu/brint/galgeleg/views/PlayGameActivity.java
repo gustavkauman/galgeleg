@@ -136,7 +136,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
                 new AlertDialog.Builder(this)
                         .setTitle("")
                         .setMessage("You've won the game!")
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        .setNeutralButton(android.R.string.ok, (dialog, which) -> {
                             Intent intent = new Intent();
                             intent.putExtra(RETURN_VALUE_IDENTIFIER, this.game.getNumberOfUsedLetters());
                             setResult(Activity.RESULT_OK, intent);
@@ -148,7 +148,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
                 new AlertDialog.Builder(this)
                         .setTitle("")
                         .setMessage("You've lost the game! :(\nYou made a total of " + this.game.getNumberOfUsedLetters() + " guesses.")
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> onBackPressed()).show();
+                        .setNeutralButton(android.R.string.ok, (dialog, which) -> onBackPressed()).show();
 
                 onBackPressed();
             }
