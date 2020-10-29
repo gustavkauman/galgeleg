@@ -31,7 +31,7 @@ public class GameController {
     }
 
     public boolean makeGuess(String letter) throws LetterAlreadyGuessedException, GuessTooLongException, GuessNotLongEnoughException, GuessNotALetter {
-        return game.guessLetter(letter);
+        return game.guessLetter(letter.toLowerCase());
     }
 
     public Game getGame() {
