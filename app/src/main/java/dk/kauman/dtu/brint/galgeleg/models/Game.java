@@ -73,17 +73,17 @@ public class Game extends Subject {
     }
 
     public String getVisibleWord() {
-        StringBuilder retValue = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
 
         for (Character c : this.word.toCharArray()) {
             if (this.usedLetters.contains(c.toString())) {
-                retValue.append(c.toString());
+                builder.append(c.toString());
             } else {
-                retValue.append("*");
+                builder.append("*");
             }
         }
 
-        return retValue.toString();
+        return builder.toString();
     }
 
     public boolean isWon() {
