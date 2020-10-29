@@ -18,10 +18,11 @@ public class DR implements WordProvider {
         try {
             URL url = new URL("https://dr.dk");
             String data = WebHelper.getDataFromUrl(url);
-            data = WebHelper.cleanData(data);
+            data = WebHelper.cleanData(data).
+                    replaceAll(" [a-zæøå] ", " ").
+                    replaceAll(" [a-zæøå][a-zæøå] "," ");
 
             this.words = new ArrayList<String>(Arrays.asList(data.split("\\s+")));
-            removeNonEssentialWords();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -29,19 +30,6 @@ public class DR implements WordProvider {
             e.printStackTrace();
         }
 
-    }
-
-    private void removeNonEssentialWords() {
-        if (this.words == null) {
-            System.out.println("Word list is currently empty. Skipping...");
-            return;
-        }
-
-        for (int i = 0; i < words.size(); i++) {
-            if (words.get(i).length() <= 2) {
-                words.remove(i);
-            }
-        }
     }
 
     @Override
