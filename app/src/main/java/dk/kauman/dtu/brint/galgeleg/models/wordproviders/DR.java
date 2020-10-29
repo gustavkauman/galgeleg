@@ -1,18 +1,14 @@
 package dk.kauman.dtu.brint.galgeleg.models.wordproviders;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import dk.kauman.dtu.brint.galgeleg.helpers.WebHelper;
-import dk.kauman.dtu.brint.galgeleg.models.interfaces.WordProvider;
 
-public class DR implements WordProvider {
-
-    private ArrayList<String> words;
-
+public class DR extends WordProvider {
 
     public DR() {
         try {
@@ -30,10 +26,5 @@ public class DR implements WordProvider {
             e.printStackTrace();
         }
 
-    }
-
-    @Override
-    public List<String> getWords() {
-        return this.words;
     }
 }

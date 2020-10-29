@@ -23,7 +23,7 @@ import dk.kauman.dtu.brint.galgeleg.models.Game;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotLongEnoughException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessTooLongException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.LetterAlreadyGuessedException;
-import dk.kauman.dtu.brint.galgeleg.models.interfaces.WordProvider;
+import dk.kauman.dtu.brint.galgeleg.models.wordproviders.WordProvider;
 import dk.kauman.dtu.brint.galgeleg.models.wordproviders.DR;
 import dk.kauman.dtu.brint.patterns.observer.Observer;
 import dk.kauman.dtu.brint.patterns.observer.Subject;
