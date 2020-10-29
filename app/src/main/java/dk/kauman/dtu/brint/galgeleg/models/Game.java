@@ -3,6 +3,7 @@ package dk.kauman.dtu.brint.galgeleg.models;
 import java.util.ArrayList;
 
 import dk.kauman.dtu.brint.galgeleg.models.enums.GameStatus;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotALetter;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotLongEnoughException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessTooLongException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.LetterAlreadyGuessedException;
@@ -18,12 +19,16 @@ public class Game extends Subject {
         this.word = word;
     }
 
-    public boolean guessLetter(String letter) throws GuessTooLongException, GuessNotLongEnoughException, LetterAlreadyGuessedException {
+    public boolean guessLetter(String letter) throws GuessTooLongException, GuessNotLongEnoughException, LetterAlreadyGuessedException, GuessNotALetter {
         if (letter.length() > 1)
             throw new GuessTooLongException();
 
         if (letter.length() < 1)
             throw new GuessNotLongEnoughException();
+
+        if (!letter.matches("[a-zæøå]")) {
+            throw new GuessNotALetter();
+        }
 
         if (usedLetters.contains(letter))
             throw new LetterAlreadyGuessedException();

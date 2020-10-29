@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import dk.kauman.dtu.brint.galgeleg.models.Game;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotALetter;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotLongEnoughException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessTooLongException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.LetterAlreadyGuessedException;
@@ -29,7 +30,7 @@ public class GameController {
         return this.game;
     }
 
-    public boolean makeGuess(String letter) throws LetterAlreadyGuessedException, GuessTooLongException, GuessNotLongEnoughException {
+    public boolean makeGuess(String letter) throws LetterAlreadyGuessedException, GuessTooLongException, GuessNotLongEnoughException, GuessNotALetter {
         return game.guessLetter(letter);
     }
 

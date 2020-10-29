@@ -20,6 +20,7 @@ import java.util.concurrent.Executors;
 import dk.kauman.dtu.brint.galgeleg.R;
 import dk.kauman.dtu.brint.galgeleg.controllers.GameController;
 import dk.kauman.dtu.brint.galgeleg.models.Game;
+import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotALetter;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotLongEnoughException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessTooLongException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.LetterAlreadyGuessedException;
@@ -101,7 +102,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
                 Toast
                     .makeText(this, "You've already tried to guess this letter", Toast.LENGTH_LONG)
                     .show();
-            } catch (GuessTooLongException | GuessNotLongEnoughException e) {
+            } catch (GuessTooLongException | GuessNotLongEnoughException | GuessNotALetter e) {
                 Toast
                     .makeText(this, "The entered does not match the criteria. Pleast enter a single letter", Toast.LENGTH_LONG)
                     .show();
