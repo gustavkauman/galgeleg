@@ -36,7 +36,7 @@ public class HighScoreListActivity extends AppCompatActivity {
         gameResults.sort((o1, o2) -> o2.getScore() - o1.getScore());
 
         if (gameResults.size() >= 10)
-            gameResults.subList(9, gameResults.size()).clear();
+            gameResults.subList(10, gameResults.size()).clear();
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_high_score_list, R.id.listContentView, gameResults) {
             @NonNull
