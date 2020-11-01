@@ -16,7 +16,7 @@ public class GameLostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_lost);
 
         TextView tv = findViewById(R.id.correctWordText);
-        tv.setText("The correct word was: " + getIntent().getStringExtra(PlayGameActivity.CORRECT_WORD_IDENTIFIER) + ".");
+        tv.setText("Det korrekte ord var: " + getIntent().getStringExtra(PlayGameActivity.CORRECT_WORD_IDENTIFIER) + ".");
     }
 
     @Override

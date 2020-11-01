@@ -16,7 +16,7 @@ public class GameWonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_won);
 
         TextView tv = findViewById(R.id.numberOfGuessesText);
-        tv.setText("You used a total of " + getIntent().getIntExtra(PlayGameActivity.NUMBER_OF_GUESSES_IDENTIFIER, 0) + " guesses.");
+        tv.setText("Du brugte " + getIntent().getIntExtra(PlayGameActivity.NUMBER_OF_GUESSES_IDENTIFIER, 0) + " forsøg.");
     }
 
     @Override

@@ -50,10 +50,10 @@ public class HighScoreListActivity extends AppCompatActivity {
                 TextView dateView = view.findViewById(R.id.listDateElement);
                 TextView contentView = view.findViewById(R.id.listContentView);
 
-                positionView.setText("No.: " + (position + 1));
+                positionView.setText("Nummer: " + (position + 1));
                 dateView.setText(gr.getDate().toLocaleString());
-                contentView.setText("Word: " + gr.getWord() +
-                        ". Number of guesses: " +
+                contentView.setText("Ord: " + gr.getWord() +
+                        ". Antal gæt: " +
                         gr.getNumberOfGuesses()
                 );
 

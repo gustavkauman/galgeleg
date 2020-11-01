@@ -79,7 +79,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
         Executor bgThread = Executors.newSingleThreadExecutor();
         Handler mainThread = new Handler(Looper.getMainLooper());
 
-        ProgressDialog dialog = ProgressDialog.show(this, "", "Loading game...");
+        ProgressDialog dialog = ProgressDialog.show(this, "", "Indlæser spil...");
 
         bgThread.execute(() -> {
             WordProvider wordProvider = new DR();
@@ -106,11 +106,11 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
 
             } catch (LetterAlreadyGuessedException e) {
                 Toast
-                    .makeText(this, "You've already tried to guess this letter", Toast.LENGTH_LONG)
+                    .makeText(this, "Du har allerede prøvet at gætte på dette bogstav", Toast.LENGTH_LONG)
                     .show();
             } catch (GuessTooLongException | GuessNotLongEnoughException | GuessNotALetter e) {
                 Toast
-                    .makeText(this, "The entered does not match the criteria. Pleast enter a single letter", Toast.LENGTH_LONG)
+                    .makeText(this, "Det indtastede er ikke gyldigt. Indtast venligst 1 bogstav.", Toast.LENGTH_LONG)
                     .show();
             }
 
