@@ -49,11 +49,7 @@ public class GameController {
 
         // Get existing results
         Gson gson = new Gson();
-        ArrayList<GameResult> results = gson.fromJson(prefs.getString("games", ""), new TypeToken<ArrayList<GameResult>>(){}.getType());
-
-        if (results == null) {
-            results = new ArrayList<GameResult>();
-        }
+        ArrayList<GameResult> results = gson.fromJson(prefs.getString("games", "[]"), new TypeToken<ArrayList<GameResult>>(){}.getType());
 
         // Add new result
         results.add(GameResult.fromGame(this.game));
