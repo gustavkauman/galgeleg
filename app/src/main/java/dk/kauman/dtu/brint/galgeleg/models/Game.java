@@ -19,6 +19,7 @@ public class Game extends Subject {
 
     public Game(String word) {
         this.word = word;
+        System.out.println("Word is: " + this.word);
     }
 
     public boolean guessLetter(String letter) throws GuessTooLongException, GuessNotLongEnoughException, LetterAlreadyGuessedException, GuessNotALetter {
@@ -48,9 +49,10 @@ public class Game extends Subject {
 
     private void updateStatus() {
         boolean ongoing = false;
+        Character letterIsMissingChar = '*';
 
         for (Character c : getVisibleWord().toCharArray()) {
-            if (c.equals("*".charAt(0)))
+            if (c.equals(letterIsMissingChar))
                 ongoing = true;
         }
 
