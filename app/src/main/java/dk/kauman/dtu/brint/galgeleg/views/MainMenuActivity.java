@@ -23,7 +23,7 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v == v.getRootView().findViewById(R.id.goToGameButton)) {
             Intent intent = new Intent(this, PlayGameActivity.class);
-            startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
+            startActivity(intent);
         } else if (v == v.getRootView().findViewById(R.id.highScoreListButton)) {
             Intent intent = new Intent(this, HighScoreListActivity.class);
             startActivity(intent);
