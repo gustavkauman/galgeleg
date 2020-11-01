@@ -90,6 +90,10 @@ public class Game extends Subject {
         return builder.toString();
     }
 
+    public String getWord() {
+        return this.word;
+    }
+
     public boolean isWon() {
         return this.getStatus().equals(GameStatus.WON);
     }

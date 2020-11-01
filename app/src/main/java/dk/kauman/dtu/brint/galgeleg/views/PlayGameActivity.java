@@ -35,6 +35,7 @@ import dk.kauman.dtu.brint.patterns.observer.Subject;
 public class PlayGameActivity extends AppCompatActivity implements View.OnClickListener, Observer {
 
     public static final String NUMBER_OF_GUESSES_IDENTIFIER = "numberOfGuesses";
+    public static final String CORRECT_WORD_IDENTIFIER = "correctWord";
 
     private ImageView img;
     private TextView wordView;
@@ -135,12 +136,9 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
             }
 
             if (game.isLost()) {
-                new AlertDialog.Builder(this)
-                        .setTitle("")
-                        .setMessage("You've lost the game! :(\nYou made a total of " + this.game.getNumberOfUsedLetters() + " guesses.")
-                        .setNeutralButton(android.R.string.ok, (dialog, which) -> onBackPressed()).show();
-
-                onBackPressed();
+                Intent intent = new Intent(this, GameLostActivity.class);
+                intent.putExtra(CORRECT_WORD_IDENTIFIER, this.game.getWord());
+                startActivity(intent);
             }
         }
     }
