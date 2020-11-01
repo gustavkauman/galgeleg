@@ -1,9 +1,19 @@
 package dk.kauman.dtu.brint.galgeleg.controllers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.prefs.Preferences;
 
 import dk.kauman.dtu.brint.galgeleg.models.Game;
+import dk.kauman.dtu.brint.galgeleg.models.GameResult;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotALetter;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessNotLongEnoughException;
 import dk.kauman.dtu.brint.galgeleg.models.exceptions.GuessTooLongException;
@@ -32,6 +42,24 @@ public class GameController {
 
     public boolean makeGuess(String letter) throws LetterAlreadyGuessedException, GuessTooLongException, GuessNotLongEnoughException, GuessNotALetter {
         return game.guessLetter(letter.toLowerCase());
+    }
+
+    public void saveGameResult(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        // Get existing results
+        Gson gson = new Gson();
+        ArrayList<GameResult> results = gson.fromJson(prefs.getString("games", ""), new TypeToken<ArrayList<GameResult>>(){}.getType());
+
+        if (results == null) {
+            results = new ArrayList<GameResult>();
+        }
+
+        // Add new result
+        results.add(GameResult.fromGame(this.game));
+
+        // Update saved variables
+        prefs.edit().putString("games", gson.toJson(results)).apply();
     }
 
     public Game getGame() {

@@ -130,6 +130,8 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
             this.wordView.setText(game.getVisibleWord());
 
             if (game.isWon()) {
+                this.controller.saveGameResult(this);
+
                 Intent intent = new Intent(this, GameWonActivity.class);
                 intent.putExtra(NUMBER_OF_GUESSES_IDENTIFIER, this.game.getNumberOfUsedLetters());
                 startActivity(intent);

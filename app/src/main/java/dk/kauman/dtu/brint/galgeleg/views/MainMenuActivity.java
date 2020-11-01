@@ -16,6 +16,7 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         findViewById(R.id.goToGameButton).setOnClickListener(this);
+        findViewById(R.id.highScoreListButton).setOnClickListener(this);
     }
 
     @Override
@@ -23,6 +24,9 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
         if (v == v.getRootView().findViewById(R.id.goToGameButton)) {
             Intent intent = new Intent(this, PlayGameActivity.class);
             startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
+        } else if (v == v.getRootView().findViewById(R.id.highScoreListButton)) {
+            Intent intent = new Intent(this, HighScoreListActivity.class);
+            startActivity(intent);
         }
     }
 }
