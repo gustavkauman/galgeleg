@@ -11,6 +11,8 @@ import dk.kauman.dtu.brint.patterns.observer.Subject;
 
 public class Game extends Subject {
 
+    public static final int ALLOWED_NUMBER_OF_GUESSES = 6;
+
     private final String word;
     private ArrayList<String> usedLetters = new ArrayList<String>();
     private GameStatus status = GameStatus.IN_PROGRESS;
@@ -57,7 +59,7 @@ public class Game extends Subject {
             return;
         }
 
-        if (getNumberOfIncorrectUsedLetters() >= 6) {
+        if (getNumberOfIncorrectUsedLetters() >= ALLOWED_NUMBER_OF_GUESSES) {
             setStatus(GameStatus.LOST);
             return;
         }
