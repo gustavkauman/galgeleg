@@ -17,8 +17,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import dk.kauman.dtu.brint.galgeleg.R;
+import dk.kauman.dtu.brint.galgeleg.models.Game;
 import dk.kauman.dtu.brint.galgeleg.models.GameResult;
 
 public class HighScoreListActivity extends AppCompatActivity {
@@ -29,7 +31,12 @@ public class HighScoreListActivity extends AppCompatActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
-        ArrayList<GameResult> gameResults = gson.fromJson(prefs.getString("games", ""), new TypeToken<ArrayList<GameResult>>(){}.getType());
+        ArrayList<GameResult> gameResults = gson.fromJson(prefs.getString("games", "[]"), new TypeToken<ArrayList<GameResult>>(){}.getType());
+
+        gameResults.sort((o1, o2) -> o2.getScore() - o1.getScore());
+
+        if (gameResults.size() >= 10)
+            gameResults.subList(9, gameResults.size()).clear();
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_high_score_list, R.id.listContentView, gameResults) {
             @NonNull
@@ -39,11 +46,16 @@ public class HighScoreListActivity extends AppCompatActivity {
                 GameResult gr = gameResults.get(position);
                 System.out.println(gr);
 
+                TextView positionView = view.findViewById(R.id.positionText);
                 TextView dateView = view.findViewById(R.id.listDateElement);
                 TextView contentView = view.findViewById(R.id.listContentView);
 
+                positionView.setText("No.: " + (position + 1));
                 dateView.setText(gr.getDate().toLocaleString());
-                contentView.setText("Word: " + gr.getWord() + ". Number of guesses: " + gr.getNumberOfGuesses());
+                contentView.setText("Word: " + gr.getWord() +
+                        ". Number of guesses: " +
+                        gr.getNumberOfGuesses()
+                );
 
                 return view;
             }

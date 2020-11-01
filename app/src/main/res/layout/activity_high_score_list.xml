@@ -8,9 +8,17 @@
         tools:context=".views.HighScoreListActivity">
 
     <TextView
+            android:text="Position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/positionText" />
+
+    <TextView
             android:text="Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/positionText"
             android:id="@+id/listDateElement" />
 
     <TextView

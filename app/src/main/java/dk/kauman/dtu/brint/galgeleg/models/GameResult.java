@@ -42,6 +42,15 @@ public class GameResult {
         return word;
     }
 
+    public int getScore() {
+        int val = this.word.length() - this.numberOfGuesses;
+
+        if (val < 0)
+            val = 0;
+
+        return val;
+    }
+
     @Override
     public String toString() {
         return "GameResult{" +
