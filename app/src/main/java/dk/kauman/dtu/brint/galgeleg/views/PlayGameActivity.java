@@ -126,6 +126,9 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
         if (subject instanceof Game) {
             Game game = (Game) subject;
 
+            if (game != this.controller.getGame())
+                return;
+
             this.wordView.setText(game.getVisibleWord());
 
             if (game.isWon()) {
