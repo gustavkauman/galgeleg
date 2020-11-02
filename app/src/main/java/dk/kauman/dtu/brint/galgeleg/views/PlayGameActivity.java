@@ -42,7 +42,6 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     private TextView guessLetterView;
     private Button guessButton;
     private GameController controller;
-    private Game game;
 
     private HashMap<Integer, Drawable> images = new HashMap<>();
 
@@ -83,8 +82,8 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
 
         bgThread.execute(() -> {
             WordProvider wordProvider = new DR();
-            this.game = this.controller.createGame(wordProvider);
-            this.game.addObserver(this);
+            this.controller.createGame(wordProvider);
+            this.controller.getGame().addObserver(this);
 
             mainThread.post(() -> {
                 dialog.cancel();
@@ -101,7 +100,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
             try {
 
                 if (!this.controller.makeGuess(guessedLetter)) {
-                    this.img.setImageDrawable(this.images.get(this.game.getNumberOfIncorrectUsedLetters()));
+                    this.img.setImageDrawable(this.images.get(this.controller.getGame().getNumberOfIncorrectUsedLetters()));
                 }
 
             } catch (LetterAlreadyGuessedException e) {
@@ -133,13 +132,13 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
                 this.controller.saveGameResult(this);
 
                 Intent intent = new Intent(this, GameWonActivity.class);
-                intent.putExtra(NUMBER_OF_GUESSES_IDENTIFIER, this.game.getNumberOfUsedLetters());
+                intent.putExtra(NUMBER_OF_GUESSES_IDENTIFIER, this.controller.getGame().getNumberOfUsedLetters());
                 startActivity(intent);
             }
 
             if (game.isLost()) {
                 Intent intent = new Intent(this, GameLostActivity.class);
-                intent.putExtra(CORRECT_WORD_IDENTIFIER, this.game.getWord());
+                intent.putExtra(CORRECT_WORD_IDENTIFIER, this.controller.getGame().getWord());
                 startActivity(intent);
             }
         }
