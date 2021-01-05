@@ -18,12 +18,4 @@ public class GameLostActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.correctWordText);
         tv.setText("Det korrekte ord var: " + getIntent().getStringExtra(PlayGameActivity.CORRECT_WORD_IDENTIFIER) + ".");
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent i = new Intent(this, MainMenuActivity.class);
-        startActivity(i);
-    }
 }

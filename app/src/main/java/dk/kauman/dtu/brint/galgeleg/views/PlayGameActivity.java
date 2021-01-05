@@ -137,12 +137,14 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(this, GameWonActivity.class);
                 intent.putExtra(NUMBER_OF_GUESSES_IDENTIFIER, this.controller.getGame().getNumberOfUsedLetters());
                 startActivity(intent);
+                finish();
             }
 
             if (game.isLost()) {
                 Intent intent = new Intent(this, GameLostActivity.class);
                 intent.putExtra(CORRECT_WORD_IDENTIFIER, this.controller.getGame().getWord());
                 startActivity(intent);
+                finish();
             }
         }
     }

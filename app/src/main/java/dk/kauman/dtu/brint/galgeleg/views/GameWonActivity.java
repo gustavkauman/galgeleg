@@ -18,12 +18,4 @@ public class GameWonActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.numberOfGuessesText);
         tv.setText("Du brugte " + getIntent().getIntExtra(PlayGameActivity.NUMBER_OF_GUESSES_IDENTIFIER, 0) + " forsøg.");
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent i = new Intent(this, MainMenuActivity.class);
-        startActivity(i);
-    }
 }
