@@ -24,6 +24,10 @@ public class GameController {
 
     private Game game;
 
+    public Game createGame(String word) {
+        return this.game = new Game(word);
+    }
+
     public Game createGame(WordProvider wordProvider) {
         // Get list of possible words from the word provider.
         List<String> possibleWords = wordProvider.getWords();

@@ -3,11 +3,13 @@ package dk.kauman.dtu.brint.galgeleg.models.wordproviders;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class WordProvider {
+import dk.kauman.dtu.brint.patterns.observer.Subject;
+
+public abstract class WordProvider extends Subject {
 
     ArrayList<String> words = new ArrayList<String>();
 
-    public List<String> getWords() {
+    public ArrayList<String> getWords() {
         return words;
     }
 }

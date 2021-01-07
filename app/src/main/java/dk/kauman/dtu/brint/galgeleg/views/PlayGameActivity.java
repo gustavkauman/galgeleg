@@ -14,9 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
+import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -42,6 +44,8 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     private TextView guessLetterView;
     private Button guessButton;
     private GameController controller;
+
+    private int requestCode = (new Random()).nextInt(16);
 
     private HashMap<Integer, Drawable> images = new HashMap<>();
 
@@ -80,14 +84,17 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
 
         ProgressDialog dialog = ProgressDialog.show(this, "", "Indlæser spil...");
 
+        final DR wordProvider = new DR();
+        wordProvider.addObserver(this);
+
         bgThread.execute(() -> {
-            WordProvider wordProvider = new DR();
-            this.controller.createGame(wordProvider);
-            this.controller.getGame().addObserver(this);
+            wordProvider.setupWords();
+            // this.controller.createGame(wordProvider);
+            // this.controller.getGame().addObserver(this);
 
             mainThread.post(() -> {
                 dialog.cancel();
-                this.wordView.setText(this.controller.getGame().getVisibleWord());
+                // this.wordView.setText(this.controller.getGame().getVisibleWord());
             });
         });
     }
@@ -146,6 +153,25 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
                 finish();
             }
+        }
+
+        if (subject instanceof WordProvider) {
+            if (((WordProvider) subject).getWords().size() <= 0)
+                return;
+
+            Intent i = new Intent(this, SelectWordActivity.class);
+            i.putStringArrayListExtra(SelectWordActivity.WORD_LIST_IDENTIFIER, ((WordProvider) subject).getWords());
+            startActivityForResult(i, this.requestCode);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == this.requestCode && resultCode == RESULT_OK) {
+            String word = data.getStringExtra(SelectWordActivity.WORD_IDENTIFIER);
+            this.controller.createGame(word).addObserver(this);
+            this.wordView.setText(this.controller.getGame().getVisibleWord());
         }
     }
 }

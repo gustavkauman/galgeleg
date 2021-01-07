@@ -38,7 +38,7 @@ public class WebHelper {
      * @return String, cleaned data
      */
     public static String cleanData(String data) {
-        return data.substring(data.indexOf("<body")). // fjern headere
+        return data.substring(data.indexOf("<body>")). // fjern headere
                 replaceAll("<.+?>", " ").toLowerCase(). // fjern tags
                 replaceAll("&#198;", "æ"). // erstat HTML-tegn
                 replaceAll("&#230;", "æ"). // erstat HTML-tegn
