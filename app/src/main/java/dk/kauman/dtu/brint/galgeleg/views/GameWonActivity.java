@@ -3,6 +3,7 @@ package dk.kauman.dtu.brint.galgeleg.views;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -22,5 +23,9 @@ public class GameWonActivity extends AppCompatActivity {
 
         LottieAnimationView animation = findViewById(R.id.iv_winning_badge);
         animation.playAnimation();
+
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.applause);
+        mp.setOnCompletionListener(MediaPlayer::release);
+        mp.start();
     }
 }
